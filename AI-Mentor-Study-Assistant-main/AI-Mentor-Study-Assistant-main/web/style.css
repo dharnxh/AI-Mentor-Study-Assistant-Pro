@@ -1,0 +1,7 @@
+body { display: flex; flex-direction: column; min-height: 100vh; }
+.hero { background: linear-gradient(135deg, #f3f4ff 0%, #ffffff 100%); }
+.card-title { color: #1f2937; }
+footer { margin-top: auto; }
+@media (max-width: 576px) {
+  .hero .display-5 { font-size: 1.6rem; }
+}

@@ -1,0 +1,12 @@
+streamlit>=1.33
+pandas>=2.0
+pdfplumber>=0.11
+httpx>=0.27
+certifi>=2024.2.2
+gTTS>=2.5
+python-dotenv>=1.0
+openai>=1.40
+reportlab>=4.0
+plotly>=5.14  # For progress charts and visualizations
+numpy>=1.24  # For embeddings and semantic search
+

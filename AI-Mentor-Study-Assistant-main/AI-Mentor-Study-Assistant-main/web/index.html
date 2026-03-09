@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Mentor — Quick Access</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#">AI Mentor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="#quickstart">Quick Start</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            <li class="nav-item dropdown ms-3" id="auth-area">
+              <a class="nav-link btn btn-outline-light text-primary" href="#" id="openAuthDrawer" data-bs-toggle="offcanvas" data-bs-target="#authDrawer">Account</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero bg-light py-5">
+      <div class="container text-center">
+        <h1 class="display-5">AI Mentor Study Assistant</h1>
+        <p class="lead">Fast, responsive interface to your learning assistant — flashcards, quizzes, labs, and exports.</p>
+
+        <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+          <a id="open-app-local" href="http://localhost:8501" target="_blank" class="btn btn-lg btn-primary">Open App (Local)</a>
+          <a id="open-app-network" href="#" class="btn btn-lg btn-outline-primary">Open App (Network)</a>
+          <a id="open-quick-doc" href="/web/README.md" class="btn btn-lg btn-secondary">How to Serve</a>
+        </div>
+
+        <small class="d-block mt-3 text-muted">Tip: Run your Streamlit app first, then click "Open App (Local)"</small>
+      </div>
+    </header>
+
+    <main class="container py-5">
+      <section id="features" class="mb-5">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Flashcards & Audio</h5>
+                <p class="card-text">Auto-generate Q/A flashcards and audio study notes (MP3) from PDFs.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Practice Exams</h5>
+                <p class="card-text">Timed practice exams with progress tracking and explanations.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Labs & Projects</h5>
+                <p class="card-text">AI-generated lab assignments, project ideas and tips tailored to your PDF topics.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="quickstart" class="mb-5">
+        <h2>Quick Start</h2>
+        <ol>
+          <li>Open a terminal and start the Streamlit app:</li>
+        </ol>
+        <pre><code>C:/Python313/python.exe -m streamlit run "app.py"</code></pre>
+        <p>Then return here and click "Open App (Local)".</p>
+      </section>
+
+      <section id="contact" class="mb-5">
+        <h2>Options & Deployment</h2>
+        <ul>
+          <li>Serve this static site with <code>python -m http.server 8000</code> (then open <code>http://localhost:8000/web/</code>).</li>
+          <li>Deploy to GitHub Pages for a public landing page.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="bg-light py-4 mt-auto">
+      <div class="container text-center small text-muted">AI Mentor • Fast responsive landing • Generated on demand</div>
+    </footer>
+
+    <!-- Bottom offcanvas drawer for auth -->
+    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="authDrawer" aria-labelledby="authDrawerLabel">
+      <div class="offcanvas-header">
+        <h5 id="authDrawerLabel">Account</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body small" id="authDrawerBody">
+        <!-- Content injected by JS: login/signup forms or profile -->
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Offcanvas-based auth drawer. Uses localStorage for simulation; integrate backend by replacing fetch calls.
+      const authArea = document.getElementById('auth-area');
+      const openAuthDrawerBtn = document.getElementById('openAuthDrawer');
+      const authDrawerEl = document.getElementById('authDrawer');
+      const authDrawerBody = document.getElementById('authDrawerBody');
+
+      function renderAuthState() {
+        const user = JSON.parse(localStorage.getItem('ai_mentor_user'));
+        // Update navbar trigger label
+        if (openAuthDrawerBtn) {
+          openAuthDrawerBtn.textContent = user && user.username ? user.username : 'Account';
+        }
+      }
+
+      function renderAuthDrawerContent() {
+        const user = JSON.parse(localStorage.getItem('ai_mentor_user'));
+        if (user && user.username) {
+          const networkUrl = `http://${window.location.hostname}:8501`;
+          authDrawerBody.innerHTML = `
+            <div class="mb-3">
+              <h5>Welcome, <strong>${user.username}</strong></h5>
+              <p class="text-muted">Signed in locally (simulated).</p>
+            </div>
+            <div class="d-flex flex-column gap-2">
+              <div class="d-flex flex-wrap gap-2">
+                <a class="btn btn-primary" href="http://localhost:8501" target="_blank">Open App (Local)</a>
+                <a class="btn btn-outline-primary" href="${networkUrl}" target="_blank">Open App (Network)</a>
+                <a class="btn btn-secondary" href="/web/README.md" target="_blank">How to Serve</a>
+                <a class="btn btn-success" href="http://localhost:8501" target="_blank">Open Labs / Flashcards</a>
+                <a class="btn btn-outline-success" href="http://localhost:8501" target="_blank">Open Export (Download)</a>
+              </div>
+              <div class="d-flex gap-2 mt-2">
+                <button class="btn btn-outline-primary" id="viewProfile">View Profile</button>
+                <button class="btn btn-danger" id="logoutBtn">Logout</button>
+              </div>
+            </div>
+          `;
+          document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); doLogout(); });
+        } else {
+          authDrawerBody.innerHTML = `
+            <ul class="nav nav-tabs" id="authTab" role="tablist">
+              <li class="nav-item" role="presentation"><button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button></li>
+              <li class="nav-item" role="presentation"><button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab">Sign up</button></li>
+            </ul>
+            <div class="tab-content pt-3">
+              <div class="tab-pane fade show active" id="login" role="tabpanel">
+                <form id="loginForm">
+                  <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" id="loginEmail" required></div>
+                  <div class="mb-3"><label class="form-label">Password</label><input type="password" class="form-control" id="loginPass" required></div>
+                  <div class="d-flex justify-content-end"><button class="btn btn-primary" type="submit">Login</button></div>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="signup" role="tabpanel">
+                <form id="signupForm">
+                  <div class="mb-3"><label class="form-label">Username</label><input type="text" class="form-control" id="signupUser" required></div>
+                  <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" id="signupEmail" required></div>
+                  <div class="mb-3"><label class="form-label">Password</label><input type="password" class="form-control" id="signupPass" required></div>
+                  <div class="d-flex justify-content-end"><button class="btn btn-success" type="submit">Create Account</button></div>
+                </form>
+              </div>
+            </div>
+          `;
+
+          // attach handlers
+          const loginForm = document.getElementById('loginForm');
+          if (loginForm) {
+            loginForm.addEventListener('submit', async (ev) => {
+              ev.preventDefault();
+              const email = document.getElementById('loginEmail').value;
+              // simulate or call backend
+              localStorage.setItem('ai_mentor_user', JSON.stringify({username: email.split('@')[0]}));
+              // hide offcanvas
+              const bs = bootstrap.Offcanvas.getInstance(authDrawerEl) || new bootstrap.Offcanvas(authDrawerEl);
+              bs.hide();
+              renderAuthState();
+            });
+          }
+
+          const signupForm = document.getElementById('signupForm');
+          if (signupForm) {
+            signupForm.addEventListener('submit', async (ev) => {
+              ev.preventDefault();
+              const username = document.getElementById('signupUser').value;
+              localStorage.setItem('ai_mentor_user', JSON.stringify({username}));
+              const bs = bootstrap.Offcanvas.getInstance(authDrawerEl) || new bootstrap.Offcanvas(authDrawerEl);
+              bs.hide();
+              renderAuthState();
+            });
+          }
+        }
+      }
+
+      function doLogout() {
+        localStorage.removeItem('ai_mentor_user');
+        renderAuthState();
+        // refresh drawer content
+        renderAuthDrawerContent();
+      }
+
+      // Update drawer content when it is shown
+      authDrawerEl.addEventListener('show.bs.offcanvas', () => { renderAuthDrawerContent(); });
+
+      // Initial render
+      document.addEventListener('DOMContentLoaded', () => { renderAuthState(); });
+    </script>
+  </body>
+</html>
