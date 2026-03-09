@@ -25,7 +25,7 @@ Clone: git clone https://github.com/yourusername/AI-Mentor-Study-Assistant-main.
 
 Install: npm install (frontend/backend)
 
-Env vars: Add .env with GROQ_API_KEY, MONGODB_URI, etc.
+Env vars: Add .env with OPEN_API_KEY, MONGODB_URI, etc.
 
 Run: docker compose up -d – Access at localhost:3000.
 
